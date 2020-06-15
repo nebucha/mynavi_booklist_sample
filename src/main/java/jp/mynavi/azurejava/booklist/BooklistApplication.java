@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BooklistApplication {
 
 	public static void main(String[] args) {
+		// ベースアプリケーションの実行
 		SpringApplication.run(BooklistApplication.class, args);
 	}
 
