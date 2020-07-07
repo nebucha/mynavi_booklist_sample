@@ -24,10 +24,13 @@ jobs:
         mvn clean package -D skipTests
     
     # Maven plugin can cosume this authentication method automatically
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    # - name: Azure Login
+    #  uses: azure/login@v1
+    #  with:
+    #    creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    # Select your way to deploy below
+    # (Maven / webapp-deploy with ServicePrincipal / webapp-deploy with PublishProfile)
     
     # Maven deploy, make sure you have correct configurations in your pom.xml
     #- name: deploy to Azure App Service using Maven
@@ -35,10 +38,17 @@ jobs:
     #    mvn azure-webapp:deploy
     
     # Deploy to Azure WebApp using webapp-deploy
+    #- name: 'Deploy to Azure WebApp'
+    #  uses: azure/webapps-deploy@v2
+    #  with: 
+    #    app-name: 'booklist-mynaviazurejava'
+    #    package: '${{ github.workspace }}/target/*.jar'
+    #      # Deploy to Azure WebApp using webapp-deploy
+
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: 'booklist-mynaviazurejava'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: '${{ github.workspace }}/target/*.jar'
-      
 
